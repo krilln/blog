@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yi.mapper.UserMapper">
+
+	<insert id="insertUser">
+		insert into user (user_id, name, nickname, password, email, birthday, gender, phone, profile_image, admin)
+		values (#{userId},#{name},#{nickname},#{password},#{email},#{birthday},#{gender},#{phone},#{profileImage},#{admin})
+	</insert>
+	
+	<select id="adminPw" resultType="AdminCheckVO">
+		select * from admin_check
+	</select>
+	
+	<select id="readUser" resultType="UserVO">
+		select * from user where user_id=#{userId}
+	</select>
+	
+	<select id="userList" resultType="UserVO">
+		select * from user where user_id = #{userId}
+		order by user_id desc
+	</select>
+	
+	
+	<update id="updateUser">
+		update user set nickname = #{nickname}, email = #{email}, phone = #{phone},profile_image = #{profileImage}
+		where user_id=#{userId}
+	</update>
+	
+	<delete id="deleteUser">
+		delete from user where user_id=#{userId}
+	</delete>
+	
+	<select id="read" resultType="UserVO">
+		select * from user where user_id=#{userId} and password = #{password}
+	</select>
+</mapper>
