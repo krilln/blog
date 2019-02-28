@@ -1,19 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="../include/header.jsp" %> 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<%@ include file="../include/header.jsp" %> 
+
+  
   
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!--   <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
@@ -58,18 +52,17 @@
 	
 </style>
 <style>
-  .modal-header, h4, .close {
+  #addmin_Modal .modal-header,  #addmin_Modal h4, #addmin_Modal .close {
     background-color: #d9534f;
     color:white !important;
     text-align: center;
     font-size: 30px;
   }
-  .modal-footer {
+  #addmin_Modal .modal-footer {
     background-color: #f9f9f9;
   }
   </style>
-</head>
-<body>
+
 	<section class="content">
 	<div class="row">
 		<div class="col-sm-12">
@@ -240,5 +233,5 @@ $(function() {
 	
 	
 </section>
-</body>
-</html>
+
+<%@ include file="../include/footer.jsp" %> 

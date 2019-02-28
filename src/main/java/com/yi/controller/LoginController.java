@@ -44,7 +44,7 @@ public class LoginController {
 		LoginDTO dto = new LoginDTO();
 		dto.setUserId(vo.getUserId());
 		dto.setNickname(vo.getNickname());
-		model.addAttribute("UserVO", dto);
+		model.addAttribute("loginDTO", dto);
 		
 		
 	}

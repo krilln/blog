@@ -1,6 +1,7 @@
 package com.yi.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class BoardVO {
 	private int bno;
@@ -14,6 +15,7 @@ public class BoardVO {
 	private int viewCnt;
 	private int writingOpen;
 	private int replyCnt;
+	private List<String> files;//첨부파일
 	
 	
 	public int getBno() {
@@ -83,12 +85,20 @@ public class BoardVO {
 		this.replyCnt = replyCnt;
 	}
 	
+	public List<String> getFiles() {
+		return files;
+	}
+	public void setFiles(List<String> files) {
+		this.files = files;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", userId=" + userId + ", category=" + category + ", subject=" + subject
 				+ ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate=" + regdate
-				+ ", viewCnt=" + viewCnt + ", writingOpen=" + writingOpen + ", replyCnt=" + replyCnt + "]";
+				+ ", viewCnt=" + viewCnt + ", writingOpen=" + writingOpen + ", replyCnt=" + replyCnt + ", files="
+				+ files + "]";
 	}
+	
 	
 	
 	

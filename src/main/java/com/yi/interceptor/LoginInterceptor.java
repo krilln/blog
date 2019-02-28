@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		// TODO Auto-generated method stub
 		logger.info("--------------- login postHandle");
 		
-		LoginDTO vo = (LoginDTO) modelAndView.getModel().get("UserVO");
+		LoginDTO vo = (LoginDTO) modelAndView.getModel().get("loginDTO");
 		logger.info("--------------- 여기까지?");
 		logger.info(vo+"");
 		if(vo != null) {
