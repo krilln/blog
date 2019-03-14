@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yi.domain.BlogVO;
 import com.yi.domain.LoginDTO;
 import com.yi.domain.UserVO;
+import com.yi.service.BlogService;
 import com.yi.service.UserService;
 @Controller//컨트롤러로 인식시키기위해 필요
 @RequestMapping("/login/*")//이 컨트롤러 안에 모든 url커맨터 앞에 board가 자동으로 붙음
@@ -20,6 +22,8 @@ public class LoginController {
 	
 	@Autowired
 	private UserService service;
+	@Autowired
+	private BlogService b_service;
 	
 	/*@RequestMapping(value="login", method=RequestMethod.GET)
 	public void loginGet(){
@@ -33,9 +37,6 @@ public class LoginController {
 	public void loginPost(String userId, String password, Model model) {
 		logger.info("login post ---------------");
 		UserVO vo = service.read(userId, password);
-		logger.info(userId+"");
-		logger.info(password+"");
-		logger.info(vo+"");
 		
 		if(vo == null) {
 			logger.info("loginPost return ---------------");
@@ -44,6 +45,16 @@ public class LoginController {
 		LoginDTO dto = new LoginDTO();
 		dto.setUserId(vo.getUserId());
 		dto.setNickname(vo.getNickname());
+		
+		BlogVO blog_ck = b_service.readBlog(vo.getUserId());
+		
+		if(blog_ck != null) {
+			dto.setBlogCheck(true);
+		}else {
+			dto.setBlogCheck(false);
+		}
+		
+		
 		model.addAttribute("loginDTO", dto);
 		
 		

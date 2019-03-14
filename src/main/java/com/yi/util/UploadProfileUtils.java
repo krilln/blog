@@ -46,7 +46,7 @@ public class UploadProfileUtils {
 		//세로 100크기에 고정하여 가로 너비는 자동 조절하도록 하여 thumbnail데이터를 만듬
 		BufferedImage destImg = Scalr.resize(sourceImg,
 											Scalr.Method.AUTOMATIC,
-											Scalr.Mode.FIT_TO_HEIGHT, 100);
+											Scalr.Mode.FIT_TO_HEIGHT, 150);
 		
 		//thumbnail 파일명을 만듬(s_를 붙임)
 		String thumbnailName = uploadProfilePath + path + "/" + "s_" + fileName;

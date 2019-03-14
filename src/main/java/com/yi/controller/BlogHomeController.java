@@ -28,11 +28,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yi.domain.BlogVO;
 import com.yi.domain.BoardVO;
+import com.yi.domain.CategoryVO;
 import com.yi.domain.Criteria;
 import com.yi.domain.PageMaker;
 import com.yi.domain.SearchCriteria;
 import com.yi.domain.UserVO;
 import com.yi.service.BlogService;
+import com.yi.service.BoardService;
+import com.yi.service.CategoryService;
 import com.yi.service.UserService;
 
 
@@ -45,6 +48,12 @@ public class BlogHomeController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BoardService boardService;
+	
+	@Autowired
+	private CategoryService cateService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BlogHomeController.class);
 	
@@ -60,6 +69,7 @@ public class BlogHomeController {
 		UserVO U_list = userService.readUser(vo.getbUserId());
 		logger.info(U_list+"");
 		int total = service.searchTotalCount(cri);
+		/*BlogVO blog_check = service.readBlog(vo.getbUserId());*/
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -72,36 +82,71 @@ public class BlogHomeController {
 		model.addAttribute("cri", cri);
 	}
 	
-	/*@RequestMapping(value="registerS", method=RequestMethod.GET)
+	@RequestMapping(value="blogRegister", method=RequestMethod.GET)
 	public void registerGet() {
 		logger.info("register ----------- get");
 		
 	}
 	
-	
-	@RequestMapping(value="registerS", method=RequestMethod.POST)
-	public String registerPost(BoardVO vo, List<MultipartFile> imageFiles ,Model model) throws IOException {
+	@RequestMapping(value="blogRegister", method=RequestMethod.POST)
+	public String registerPost(BlogVO vo, Model model) throws IOException {
 		logger.info("register ----------- post");
 		logger.info(vo.toString());
 		
-		List<String> files = new ArrayList<>();
-		for(MultipartFile file : imageFiles) {
-			logger.info("file name : "+file.getOriginalFilename());
-			logger.info("file size : "+file.getSize());
-			
-			String thumPath = UploadUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-			
-			files.add(thumPath);
-		}
-		vo.setFiles(files);
+		service.insertBlog(vo);
 		
-		service.regist(vo);
+		CategoryVO cavo = new CategoryVO();
+		cavo.setSubject("일상·생각");
+		cavo.setCategory("일상");
+		cavo.setUserId(vo.getbUserId());
+		cavo.setCategoryOpen(true);
+		cavo.setRepresentCategory(true);
+		
+		cateService.category_insert(cavo);
+		
+		logger.info("cavo"+cavo);
+		
+		CategoryVO crvo =  cateService.category_read("일상", vo.getbUserId());
+		
+		
+		BoardVO bvo = new BoardVO();
+		bvo.setUserId(vo.getbUserId());
+		bvo.setCategoryNo(crvo.getCategoryNo());
+		bvo.setTitle("블로그의 기본 게시글 제목입니다.");
+		bvo.setContent("블로그의 기본 게시글 내용입니다.");
+		boardService.regist(bvo);
+		
+		logger.info("bvo"+bvo);
+		
 		model.addAttribute("result", "success");
 		
-		return "redirect:/sboard/list";
+		return "redirect:/blogHome/list";
 		
 	}
 	
+	@RequestMapping(value="blogModify", method=RequestMethod.GET)
+	public void modifyPageSGet(BlogVO vo, Model model) {
+		logger.info("blogModify ----------- get");
+		vo = service.readBlog(vo.getbUserId());
+		model.addAttribute("BlogVO", vo);
+		
+		
+	}
+	
+	@RequestMapping(value="blogModify", method=RequestMethod.POST)
+	public String modifyPageSPost(BlogVO vo, Model model) throws IOException {
+		logger.info("blogModify ----------- post");
+		logger.info(vo+" ----------- post");
+		service.updateBlog(vo);
+		
+		model.addAttribute("result", "success");
+		
+		
+		return "redirect:/blogHome/list";
+		
+	}
+	
+	/*
 	@RequestMapping(value="readPageS", method=RequestMethod.GET)
 	public void readPageS(@RequestParam("bno") int bno,SearchCriteria cri , Model model) {
 		logger.info("readPageS ----------- get");

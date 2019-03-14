@@ -12,16 +12,16 @@ public interface BoardService {
 	public void modify(BoardVO vo);
 	public void modifyFile(BoardVO vo, String[] delFiles, List<String> addImages);
 	public void remove(int bno);
-	public List<BoardVO> listAll();
+	public List<BoardVO> listAll(String userId);
 	public void setViewcnt(BoardVO vo);
 	
 	/*------------------------------------------*/
 	
-	public List<BoardVO> listCriteria(Criteria cri);
-	public int totalCount();
+	public List<BoardVO> listCriteria(Criteria cri, String userId);
+	public int totalCount(String userId);
 	
 	/*------------------------------------------*/
 	
-	public List<BoardVO> listSearch(SearchCriteria cri);
-	public int searchTotalCount(SearchCriteria cri);
+	public List<BoardVO> listSearch(SearchCriteria cri, String userId);
+	public int searchTotalCount(SearchCriteria cri, String userId);
 }

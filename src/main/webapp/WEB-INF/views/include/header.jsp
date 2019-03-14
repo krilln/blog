@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <style>
 	body{
@@ -18,16 +20,17 @@
 
 	header{
 		width: 1920px;
-		height: 200px; 
+		height: 300px; 
+		/* background-image: url("../resources/header_img/cc5f020d7f9963d44f2e0cbe455a030a.jpg"); */
 	}
 	#header{
 		width: 80%;  
 	}
 	#header #header_ul{
 		overflow: hidden;
-		width: 30%;  
+		width: 35%;   
 		position: absolute; 
-		right:10px;
+		right:2%;
 		top:10px; 
 		margin-top: 0px;
 		margin-bottom: 0px;
@@ -57,6 +60,11 @@
 		color: #707070; 
 		font-weight: bold; 
 	}
+	#nick{
+		font-weight: bold;
+		float: left;
+		font-size: 1.1em;
+	}
 </style>
   <style>
   .modal-header, h4, .close {
@@ -73,22 +81,43 @@
   	margin:  0 auto;
   	overflow: hidden;
   }
+  header{
+  	width: 70%;
+  	margin:  0 auto;
+ 
+  }
+  #header{
+  	width: 100%;
+  	margin:  0 auto;
+  	
+  }
   </style>
 </head>
 <body>
  <header>
  	<div id="header">
  		<ul id="header_ul">
- 			<li><a href="#">내 블로그</a>  <span class="bar">ㅣ</span></li>
+ 			<c:if test="${login != null }">
+ 				<li><a href="${pageContext.request.contextPath }/blogPage/blog?bUserId=${login.userId}&perPageNum=5">내 블로그</a><span class="bar">ㅣ</span></li>
+ 			</c:if>
+ 			  <c:if test="${login == null }">
+                    	<li><a href="#" class="myBtn">내 블로그</a><span class="bar">ㅣ</span></li>
+              </c:if>
  			<li><a href="#">이웃블로그</a>  <span class="bar">ㅣ</span></li>
  			<li><a href="#" id="blog_home">블로그 홈</a>  <span class="bar">ㅣ</span></li>
+ 			<c:if test="${login != null }">
+ 			<li><a href="#" id="nick">${login.nickname}님</a></li>
+ 			</c:if>
+ 			<c:if test="${login == null }">
+                    	
+              </c:if>
  			<li>
  				<div id="loginBtn">
  					<c:if test="${login != null }">
-                    	<%-- ${dest.nickname }hh${dest.nickname } --%><a href="${pageContext.request.contextPath }/login/logout" id="myBtn">로그아웃</a>
+                    	<a href="${pageContext.request.contextPath }/login/logout" class="myBtn">로그아웃</a>
                     </c:if>
                      <c:if test="${login == null }">
-                    	<a href="#" id="myBtn">로그인</a>
+                    	<a href="#" class="myBtn">로그인</a>
                     </c:if>
  					<!-- <a href="#" id="myBtn">로그인</a>   -->
  				</div>
@@ -117,7 +146,7 @@
             </div>
             <div class="form-group"> 
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label>
-              <input type="text" class="form-control" name="password" id="psw" placeholder="비밀번호">
+              <input type="password" class="form-control" name="password" id="psw" placeholder="비밀번호">
             </div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>아이디 저장</label>
@@ -138,7 +167,7 @@
  
 <script>
 $(document).ready(function(){
-  $("#myBtn").click(function(){
+  $(".myBtn").click(function(){
     $("#myModal").modal();
   });
   $("#go_register").click(function() {
@@ -147,5 +176,6 @@ $(document).ready(function(){
 	$("#blog_home").click(function() {
 		location.href = "${pageContext.request.contextPath }/blogHome/list";
 	})
+	
 });
 </script>

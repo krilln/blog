@@ -3,10 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yi.mapper.BoardMapper">
+
+	<resultMap type="BoardVO" id="blog_boardList">
+			<id property="bno" column="bno"/>
+			<result property="userId" column="user_id"/>
+			<result property="categoryNo" column="category_no"/>
+			<result property="subject" column="subject"/>
+			<result property="content" column="content"/>
+			<result property="title" column="title"/>
+			<result property="regdate" column="regdate"/>
+			<result property="viewCnt" column="view_cnt"/>
+			<result property="writingOpen" column="writing_open"/>
+			<result property="replyCnt" column="reply_cnt"/>
+			<result property="category" column="category"/>
+		</resultMap>
 	
 	<insert id="insert">
-		insert into board (user_id, category, subject, title, content, writing_open)
-		values (#{userId}, #{category}, #{subject}, #{title},#{content},#{writingOpen})
+		insert into board (user_id, category_no, subject, title, content, writing_open)
+		values (#{userId}, #{categoryNo}, #{subject}, #{title},#{content},#{writingOpen})
 	</insert>
 	
 	<select id="read" resultType="BoardVO">
@@ -14,7 +28,7 @@
 	</select>
 	
 	<update id="update">
-		update board set category=#{category}, subject=subject, title=#{title}, content=#{content}, writing_open=#{writingOpen}
+		update board set category_no=#{categoryNo}, subject=subject, title=#{title}, content=#{content}, writing_open=#{writingOpen}
 		where bno = #{bno}
 	</update>
 	
@@ -23,7 +37,7 @@
 	</delete>
 	
 	<select id="listAll" resultType="BoardVO">
-		select * from board order by bno desc;
+		select * from board where user_id=#{userId} order by bno desc;
 	</select>
 	
 	<update id="setVcnt">
@@ -32,31 +46,37 @@
 	</update>
 	
 	<select id="listPage" resultType="BoardVO">
-		select * from board order by bno desc
+		select * from board where user_id=#{userId} order by bno desc
 		limit #{page}, 10
 	</select>
 	
 	<select id="listCriteria" resultType="BoardVO">
-		select * from board order by bno desc
+		select * from board where user_id=#{userId} order by bno desc
 		limit #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="totalCount" resultType="int">
-		select count(bno) from board
+		select count(bno) from board where user_id=#{userId}
 	</select>
 	
 	<sql id="search">
-		<if test="searchType == 'tc'.toString()">
-			where title like CONCAT('%',#{keyword}, '%')
-			OR content like CONCAT('%',#{keyword}, '%')
+		<if test="cri.searchType == 'tc'.toString()">
+			where title like CONCAT('%',#{cri.keyword}, '%') and user_id=#{userId}
+			OR content like CONCAT('%',#{cri.keyword}, '%') and user_id=#{userId}
+		</if>
+		<if test="cri.searchType == 'ca'.toString()">
+			where category_no like CONCAT('%',#{cri.keyword}, '%')
+		</if>
+		<if test="cri.searchType == null or cri.searchType.equals('')">
+			where user_id=#{userId}
 		</if>
 	</sql>
 	
-	<select id="listSearch" resultType="BoardVO">
+	<select id="listSearch" resultMap="blog_boardList">
 		select * from board 
 		<include refid="search"></include>
 		order by bno desc
-		limit #{pageStart}, #{perPageNum}
+		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="searchTotalCount" resultType="int">
@@ -65,8 +85,28 @@
 	</select>
 	
 	<update id="updateReplyCnt">
-		update board set reply_cnt= replyCnt + #{amount}
+		update board set reply_cnt= reply_cnt + #{amount}
 		where bno = #{bno}
 	</update>
+	
+	<insert id="addAttach">
+		insert into attach(full_name, bno) values (#{fullName}, LAST_INSERT_ID())
+	</insert>
+	
+	<select id="getAttach" resultType="String">
+		select full_name from attach where bno = #{bno} order by attach_date
+	</select>
+	
+	<delete id="delAttach">
+		delete from attach where bno=#{bno}
+	</delete>
+	
+	<delete id="deleteAttachByFullName">
+		delete from attach where bno=#{bno} and full_name=#{fullName}
+	</delete>
+	
+	<insert id="addAttachByBno">
+		insert into attach(fullname, bno) values (#{fullName}, #{bno})
+	</insert>
 	
 </mapper>

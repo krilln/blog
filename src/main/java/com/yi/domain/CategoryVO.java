@@ -1,11 +1,13 @@
 package com.yi.domain;
 
 public class CategoryVO {
+	private int categoryNo;
 	private String category;
 	private String userId;
 	private String subject;
 	private boolean categoryOpen;
-	private String representCategory;
+	private boolean representCategory;
+	
 	
 	public String getCategory() {
 		return category;
@@ -31,18 +33,25 @@ public class CategoryVO {
 	public void setCategoryOpen(boolean categoryOpen) {
 		this.categoryOpen = categoryOpen;
 	}
-	public String getRepresentCategory() {
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
+	public boolean isRepresentCategory() {
 		return representCategory;
 	}
-	public void setRepresentCategory(String representCategory) {
+	public void setRepresentCategory(boolean representCategory) {
 		this.representCategory = representCategory;
 	}
-	
 	@Override
 	public String toString() {
-		return "CategoryVO [category=" + category + ", userId=" + userId + ", subject=" + subject + ", categoryOpen="
-				+ categoryOpen + ", representCategory=" + representCategory + "]";
+		return "CategoryVO [categoryNo=" + categoryNo + ", category=" + category + ", userId=" + userId + ", subject="
+				+ subject + ", categoryOpen=" + categoryOpen + ", representCategory=" + representCategory + "]";
 	}
+	
+	
 	
 	
 }

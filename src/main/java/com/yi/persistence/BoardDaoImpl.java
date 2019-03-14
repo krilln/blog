@@ -44,9 +44,9 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardVO> listAll() {
+	public List<BoardVO> listAll(String userId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + ".listAll");
+		return sqlSession.selectList(namespace + ".listAll", userId);
 	}
 
 	@Override
@@ -56,37 +56,50 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardVO> listPage(int page) {
+	public List<BoardVO> listPage(int page, String userId) {
 		// TODO Auto-generated method stub
 		if(page < 0) {
 			page = 1;
 		}
 		page = (page-1) * 10;
-		return sqlSession.selectList(namespace + ".listPage", page);
+		Map<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		map.put("userId", userId);
+		return sqlSession.selectList(namespace + ".listPage", map);
 	}
 
 	@Override
-	public List<BoardVO> listCriteria(Criteria cri) {
+	public List<BoardVO> listCriteria(Criteria cri,String userId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + ".listCriteria", cri);
+		Map<String, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		map.put("userId", userId);
+		return sqlSession.selectList(namespace + ".listCriteria", map);
 	}
 
 	@Override
-	public int totalCount() {
+	public int totalCount(String userId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + ".totalCount");
+		return sqlSession.selectOne(namespace + ".totalCount", userId);
 	}
 
 	@Override
-	public List<BoardVO> listSearch(SearchCriteria cri) {
+	public List<BoardVO> listSearch(SearchCriteria cri,String userId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + ".listSearch", cri);
+		Map<String, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		map.put("userId", userId);
+		System.out.println("크리리리리"+cri);
+		return sqlSession.selectList(namespace + ".listSearch", map);
 	}
 
 	@Override
-	public int searchTotalCount(SearchCriteria cri) {
+	public int searchTotalCount(SearchCriteria cri,String userId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + ".searchTotalCount", cri);
+		Map<String, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		map.put("userId", userId);
+		return sqlSession.selectOne(namespace + ".searchTotalCount", map);
 	}
 
 	@Override

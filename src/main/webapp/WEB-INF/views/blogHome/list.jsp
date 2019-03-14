@@ -19,8 +19,12 @@
 						<option value="nu" ${cri.searchType == 'nu' ? 'selected' : ''}>닉네임·아이디</option>
 					</select>
 					<input type="text" name="keyword" id="keyWordInput" value="${cri.keyword }">
-					<button id="btnSearch">Search</button>
-					<button id="btnNewBoard">New Board</button>
+					<button id="btnSearch">검색</button>
+					<c:if test="${login.blogCheck == false }">
+					<button id="btnNewBlog">블로그 만들기</button>
+					</c:if>
+					<c:if test="${login.blogCheck == true }">
+					</c:if>
 				</div>
 			</div>
 			<div class="box">
@@ -39,9 +43,9 @@
 						    	<c:forEach var="blog" items="${list }">  
 						    	<tr>
 						    		<td>${blog.blogNo }</td>
-						    		<td><a href="#">${blog.blogName }</a></td>
+						    		<td><a href="${pageContext.request.contextPath }/blogPage/blog?bUserId=${blog.bUserId}&blogNo=${blog.blogNo }&perPageNum=5">${blog.blogName }</a></td>
 						    		<td>${blog.introduction }</td>
-						    		<td>${blog.nickname}(${blog.bUserId })</td>  
+						    		<td>${blog.nickname}(<span class="bId">${blog.bUserId }</span>)</td>  
 						    	</tr>	
 						    	</c:forEach>
 						    </tbody>
@@ -64,7 +68,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> 
 	
 </section>
 
@@ -75,9 +79,9 @@
 			var keyword = $("#keyWordInput").val();
 			location.href = "${pageContext.request.contextPath }/blogHome/list?searchType="+searchType+"&keyword="+keyword;
 		})
-		/* $("#btnNewBoard").click(function() {
-			location.href = "${pageContext.request.contextPath }/sboard/registerS";
-		}) */
+		 $("#btnNewBlog").click(function() {
+			location.href = "${pageContext.request.contextPath }/blogHome/blogRegister";
+		}) 
 	})
 </script>
 

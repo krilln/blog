@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yi.mapper.CategoryMapper">
+	
+	<select id="category_list" resultType="CategoryVO">
+		select * from category where user_id=#{userId};
+	</select>
+	
+	<insert id="category_insert">
+		insert into category (category, user_id, subject, category_open, represent_category)
+		values (#{category},#{userId},#{subject},#{categoryOpen},#{representCategory})
+	</insert>
+	
+	<select id="category_read" resultType="CategoryVO">
+		select * from category where category = #{category} and user_id=#{userId};
+	</select>
+	<select id="category_read_byNo" resultType="CategoryVO">
+		select * from category where category_no = #{categoryNo}
+	</select>
+</mapper>

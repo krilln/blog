@@ -22,9 +22,9 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public BlogVO readBlog(int blogNo) {
+	public BlogVO readBlog(String bUserId) {
 		// TODO Auto-generated method stub
-		return dao.readBlog(blogNo);
+		return dao.readBlog(bUserId);
 	}
 
 	@Override

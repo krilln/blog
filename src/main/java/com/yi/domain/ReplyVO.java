@@ -13,6 +13,7 @@ public class ReplyVO {
 	private String replyContent;
 	private String replyWriter;
 	private Date replyRegdate;
+	private boolean replyOpen;
 	
 	
 	public int getRno() {
@@ -75,13 +76,19 @@ public class ReplyVO {
 	public void setReplyRegdate(Date replyRegdate) {
 		this.replyRegdate = replyRegdate;
 	}
-	
+	public boolean isReplyOpen() {
+		return replyOpen;
+	}
+	public void setReplyOpen(boolean replyOpen) {
+		this.replyOpen = replyOpen;
+	}
 	@Override
 	public String toString() {
 		return "ReplyVO [rno=" + rno + ", userId=" + userId + ", bno=" + bno + ", highReply=" + highReply + ", groupNo="
 				+ groupNo + ", groupArray=" + groupArray + ", depth=" + depth + ", replyContent=" + replyContent
-				+ ", replyWriter=" + replyWriter + ", replyRegdate=" + replyRegdate + "]";
+				+ ", replyWriter=" + replyWriter + ", replyRegdate=" + replyRegdate + ", replyOpen=" + replyOpen + "]";
 	}
+	
 	
 	
 	

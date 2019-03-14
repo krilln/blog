@@ -23,14 +23,17 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		dao.insert(vo);
 		
-		List<String> files = vo.getFiles();
 		
-		if(files == null || files.size() == 0) 
-			return;
+		
+		if(vo.getFiles() != null) {
+			List<String> files = vo.getFiles();
 			
 			for(String fullname : files) {
 				dao.addAttach(fullname);
 			}
+		}
+			
+			
 	}
 
 	@Override
@@ -73,9 +76,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> listAll() {
+	public List<BoardVO> listAll(String userId) {
 		// TODO Auto-generated method stub
-		return dao.listAll();
+		return dao.listAll(userId);
 	}
 
 	@Override
@@ -85,27 +88,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> listCriteria(Criteria cri) {
+	public List<BoardVO> listCriteria(Criteria cri, String userId) {
 		// TODO Auto-generated method stub
-		return dao.listCriteria(cri);
+		return dao.listCriteria(cri,userId);
 	}
 
 	@Override
-	public int totalCount() {
+	public int totalCount(String userId) {
 		// TODO Auto-generated method stub
-		return dao.totalCount();
+		return dao.totalCount(userId);
 	}
 
 	@Override
-	public List<BoardVO> listSearch(SearchCriteria cri) {
+	public List<BoardVO> listSearch(SearchCriteria cri,String userId) {
 		// TODO Auto-generated method stub
-		return dao.listSearch(cri);
+		return dao.listSearch(cri,userId);
 	}
 
 	@Override
-	public int searchTotalCount(SearchCriteria cri) {
+	public int searchTotalCount(SearchCriteria cri,String userId) {
 		// TODO Auto-generated method stub
-		return dao.searchTotalCount(cri);
+		return dao.searchTotalCount(cri,userId);
 	}
 
 }

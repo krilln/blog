@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <style>
+    	#fooooooter{
+    		margin-top: 100px;
+    	}
+    </style>
 
-footer
+	<div id="fooooooter"></div>
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
 </body>
 </html>

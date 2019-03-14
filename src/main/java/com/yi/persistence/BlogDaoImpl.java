@@ -24,9 +24,9 @@ public class BlogDaoImpl implements BlogDao {
 	}
 
 	@Override
-	public BlogVO readBlog(int blogNo) {
+	public BlogVO readBlog(String bUserId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + ".readBlog", blogNo);
+		return sqlSession.selectOne(namespace + ".readBlog", bUserId);
 	}
 
 	@Override

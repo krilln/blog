@@ -6,16 +6,16 @@ import java.util.List;
 public class BoardVO {
 	private int bno;
 	private String userId;
-	private String category;
+	private int categoryNo;
 	private String subject;
 	private String title;
 	private String content;
-	private String writer;
 	private Date regdate;
 	private int viewCnt;
 	private int writingOpen;
 	private int replyCnt;
 	private List<String> files;//첨부파일
+	private String category;
 	
 	
 	public int getBno() {
@@ -30,11 +30,12 @@ public class BoardVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getCategory() {
-		return category;
+	
+	public int getCategoryNo() {
+		return categoryNo;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 	public String getSubject() {
 		return subject;
@@ -53,12 +54,6 @@ public class BoardVO {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 	public Date getRegdate() {
 		return regdate;
@@ -91,13 +86,19 @@ public class BoardVO {
 	public void setFiles(List<String> files) {
 		this.files = files;
 	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	@Override
 	public String toString() {
-		return "BoardVO [bno=" + bno + ", userId=" + userId + ", category=" + category + ", subject=" + subject
-				+ ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate=" + regdate
-				+ ", viewCnt=" + viewCnt + ", writingOpen=" + writingOpen + ", replyCnt=" + replyCnt + ", files="
-				+ files + "]";
+		return "BoardVO [bno=" + bno + ", userId=" + userId + ", categoryNo=" + categoryNo + ", subject=" + subject
+				+ ", title=" + title + ", content=" + content + ", regdate=" + regdate + ", viewCnt=" + viewCnt
+				+ ", writingOpen=" + writingOpen + ", replyCnt=" + replyCnt + ", files=" + files + "]";
 	}
+	
 	
 	
 	

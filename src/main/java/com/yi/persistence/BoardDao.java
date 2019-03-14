@@ -11,20 +11,20 @@ public interface BoardDao {
 	public BoardVO read(int bno);
 	public void update(BoardVO vo);
 	public void delete(int bno);
-	public List<BoardVO> listAll();
+	public List<BoardVO> listAll(String userId);
 	public void setVcnt(BoardVO vo);
 	
 	
 	/*-------------------------------------------*/
 	
-	public List<BoardVO> listPage(int bno);
-	public List<BoardVO> listCriteria(Criteria cri);
-	public int totalCount();
+	public List<BoardVO> listPage(int bno, String userId);
+	public List<BoardVO> listCriteria(Criteria cri, String userId);
+	public int totalCount(String userId);
 	
 	/*------------------------------------------*/
 	
-	public List<BoardVO> listSearch(SearchCriteria cri);
-	public int searchTotalCount(SearchCriteria cri);
+	public List<BoardVO> listSearch(SearchCriteria cri, String userId);
+	public int searchTotalCount(SearchCriteria cri, String userId);
 	
 	
 	

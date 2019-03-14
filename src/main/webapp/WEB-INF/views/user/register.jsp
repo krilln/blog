@@ -6,7 +6,9 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
 <!--   <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 
+
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/resources/smart/js/service/HuskyEZCreator.js" charset="utf-8"></script>
   <script>
   $( function() {
     $( "#datepicker" ).datepicker({
@@ -130,11 +132,11 @@
 								<input type="text" name="phone" class="form-control" placeholder="전화번호 입력 ex) 010-1234-5678">
 							</div>
 							<input type="checkbox" name="admin" id="admin_check" value="true" class="admin"><a href="#" id="cl" >관리자</a>
-						</div>   
 						<div class="box-footer">
 							<button type="submit" class="btn btn-primary">확인</button>
 							<button type="reset" class="btn btn-danger" onClick="history.back()">취소</button>
 							<!-- <p>테스트<a href="https://www.naver.com/" target="_blank">아니이이이이</a></p>   -->
+						</div>
 						</div>
 					</form>
 			</div>
@@ -215,7 +217,7 @@ $(function() {
 		if(pro == null || pro == ""){
 			
 			//기본이미지
-			$("#profileImage").val("/profile/s_91b189d2-96c8-4a9e-91e5-344eecc3582e_5afc60f3c282a.jpg");
+			$("#profileImage").val("/profile/s_2545f896-5575-4b8b-9a1f-ba34902a2cf8_5afc60f3c282a.jpg");
 			return true;
 		}
 		

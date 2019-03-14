@@ -5,34 +5,34 @@
 <mapper namespace="com.yi.mapper.ReplyMapper">
 	
 	<select id="list" resultType="ReplyVO">
-		select * from tbl_reply where bno = #{bno}
-		order by rno desc
+		select * from reply where bno = #{bno}
+		order by rno
 	</select>
 	<insert id="create">
-		insert into tbl_reply (bno, replyer, replytext)
-		values (#{bno}, #{replyer}, #{replytext})
+		insert into reply (bno, user_id, reply_content, reply_writer, reply_open)
+		values (#{bno}, #{userId}, #{replyContent}, #{replyWriter}, #{replyOpen})
 	</insert>
 	<update id="update">
-		update tbl_reply set replytext = #{replytext}, updatedate = now()
+		update reply set reply_content = #{replyContent}
 		where rno=#{rno}
 	</update>
 	<delete id="delete">
-		delete from tbl_reply where rno=#{rno}
+		delete from reply where rno=#{rno}
 	</delete>
 	
 	<select id="listPage" resultType="ReplyVO">
-		select * from tbl_reply 
+		select * from reply 
 		where bno = #{bno}
-		order by rno desc
+		order by rno
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="totalCount" resultType="int">
-		select count(bno) from tbl_reply where bno = #{bno}
+		select count(bno) from reply where bno = #{bno}
 	</select>
 	
 	<select id="selectByBno" resultType="ReplyVO">
-		select * from tbl_reply where rno = #{rno}
+		select * from reply where rno = #{rno}
 	</select>
 	
 </mapper>

@@ -8,7 +8,7 @@ import com.yi.domain.SearchCriteria;
 
 public interface BlogService {
 	public void insertBlog(BlogVO vo);
-	public BlogVO readBlog(int blogNo);
+	public BlogVO readBlog(String bUserId);
 	public void updateBlog(BlogVO vo);
 	public void deleteBlog(int blogNo);
 	public List<BlogVO> blogList();

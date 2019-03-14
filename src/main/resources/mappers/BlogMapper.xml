@@ -19,7 +19,7 @@
 	</insert>
 	
 	<select id="readBlog" resultType="BlogVO">
-		select * from blog.blog where blog_no = #{blogNo}
+		select * from blog.blog where b_user_id = #{bUserId}
 	</select>
 	
 	<update id="updateBlog">
