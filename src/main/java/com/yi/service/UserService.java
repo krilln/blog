@@ -15,4 +15,5 @@ public interface UserService {
 	public UserVO read(String userId, String password);
 	
 	public AdminCheckVO adminPw();
+	public boolean dulUserId(String du);
 }

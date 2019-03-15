@@ -15,4 +15,5 @@ public interface UserDao {
 	public UserVO read(String userId, String password);
 	
 	public AdminCheckVO adminPw();
+	public UserVO dulUserId(String du);
 }

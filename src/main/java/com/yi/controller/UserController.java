@@ -107,4 +107,29 @@ public class UserController {
 		}
 		return entity;
 	}
+	
+	 @ResponseBody
+	   @RequestMapping(value="/dul", method=RequestMethod.POST)
+	   public ResponseEntity<String> dulRead(@RequestBody String du, Model model){
+	      ResponseEntity<String> entity = null;
+	      logger.info("member read ---------" + du);
+	      
+	      try {
+	         boolean dul = service.dulUserId(du);
+	         System.out.println("dul은"+ dul);
+	         System.out.println("du는" + du);
+	         if(dul == true) {
+	            entity = new ResponseEntity<>("true",HttpStatus.OK);
+	         }else {
+	            entity = new ResponseEntity<String>("false", HttpStatus.OK);
+	         }
+	         
+	         System.out.println("entity는"+ entity);
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	         entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	      }
+	      return entity;
+	   }
 }

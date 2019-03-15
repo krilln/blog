@@ -373,11 +373,15 @@
 			$("#wri").css("display","none");
 			$("#ed").css("display","none");
 			$("#manage").css("display","none");
+			$(".btnModify").css("display","none");
+			$(".btnRemove").css("display","none");
 		}
 		if($("#loginId").text() == $("#blogId").text()){
 			$("#wri").css("display","inline");
 			$("#ed").css("display","inline");
 			$("#manage").css("display","inline");
+			$(".btnModify").css("display","inline");
+			$(".btnRemove").css("display","inline");
 		}
 		if($("#loginId").text() != $(".timeline-header").text()){
 			$(".timeline-footer").css("display","none");

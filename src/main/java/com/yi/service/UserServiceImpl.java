@@ -56,4 +56,19 @@ public class UserServiceImpl implements UserService {
 		return dao.adminPw();
 	}
 
+	@Override
+	public boolean dulUserId(String du) {
+		// TODO Auto-generated method stub
+		try {
+			UserVO user = dao.dulUserId(du);
+			if(user == null) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

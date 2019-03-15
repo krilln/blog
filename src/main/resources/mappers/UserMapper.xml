@@ -35,4 +35,8 @@
 	<select id="read" resultType="UserVO">
 		select * from user where user_id=#{userId} and password = #{password}
 	</select>
+	
+	<select id="dulUserId" resultType="UserVO">
+		select user_id from where user_id=#{userId}
+	</select>
 </mapper>

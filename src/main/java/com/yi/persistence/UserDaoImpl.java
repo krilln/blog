@@ -64,4 +64,10 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.selectOne(namespace + ".adminPw");
 	}
 
+	@Override
+	public UserVO dulUserId(String UserId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + ".dulUserId", UserId);
+	}
+
 }

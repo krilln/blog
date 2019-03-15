@@ -49,6 +49,16 @@
 	#ac_fail{
 		color: red;
 	}
+	#userId{
+		width: 85%;
+		float: left;
+	}
+	#dul{
+		width: 15%;
+	}
+	#ID_div{
+		overflow: hidden;
+	}
 	
 </style>
 <style>
@@ -72,45 +82,34 @@
 				</div>
 					<form  id="f1" role="form" method="post" action="register" enctype="multipart/form-data">
 						<div class="box-body">
-							<div class="form-group">
-								<label>아이디</label>
-								<input type="text" name="userId" class="form-control" placeholder="아이디"> 
+							<label>아이디</label>
+							<div class="form-group" id="ID_div">
+								
+								<input type="text" name="userId" class="form-control" placeholder="아이디 (영소문자 or 숫자 6~20자리)" id="userId"> 
+								<input type="button" class="form-control" value="중복체크" id="dul">
 							</div>
 							 <div class="form-group">
 								<label>이름</label>
-								<input type="text" name="name" class="form-control" placeholder="이름">
+								<input type="text" name="name" class="form-control" placeholder="이름(한글 2~4자리)" id="name">
 							</div>
 							<div class="form-group">
 								<label>닉네임</label>
-								<input type="text" name="nickname" class="form-control" placeholder="닉네임">
+								<input type="text" name="nickname" class="form-control" placeholder="닉네임(영소문자 or 숫자 or 한글 1~20자리)" id="nickname">
 							</div>
 							<div class="form-group">  
 								<label>비밀번호</label>
-								<input type="password" name="password" class="form-control" placeholder="비밀번호">
+								<input type="password" name="password" class="form-control" placeholder="비밀번호(영소문자 or 숫자 or 특수문자[!@#$%] 8~20자리)" id="password">
+							</div> 
+							<div class="form-group">  
+								<label>비밀번호 확인</label>
+								<input type="password" name="password_ck" class="form-control" placeholder="비밀번호 확인" id="password_ck">
 							</div> 
 							<div class="form-group">
 								<label>이메일</label>
-								<input type="text" name="email" class="form-control" placeholder="이메일">
+								<input type="text" name="email" class="form-control" placeholder="이메일" id="email">
 							</div>
 							<div class="form-group">
 								<label>생년월일</label><br>
-								<!-- <input type="text" id="year" placeholder="년(4자)" class="form-control">
-								<select id="month" class="form-control">
-									<option>월</option>
-									<option value="01">1</option>
-									<option value="02">2</option>
-									<option value="03">3</option>
-									<option value="04">4</option>
-									<option value="05">5</option>
-									<option value="06">6</option>
-									<option value="07">7</option>
-									<option value="08">8</option>
-									<option value="09">9</option>
-									<option value="10">10</option>
-									<option value="11">11</option>
-									<option value="12">12</option>
-								</select>
-								<input type="text" id="date" placeholder="일" class="form-control"> -->
 								<input type="text" name="birthday" id="datepicker" class="form-control" size="30" placeholder="생년월일">
 								<!-- <input type="hidden" name="birthday" value="" id="birthday"> -->
 							</div>
@@ -129,11 +128,11 @@
 							</div>
 							<div class="form-group">
 								<label>휴대전화</label>
-								<input type="text" name="phone" class="form-control" placeholder="전화번호 입력 ex) 010-1234-5678">
+								<input type="text" name="phone" class="form-control" placeholder="전화번호 입력 ex) 010-1234-5678" id="phone">
 							</div>
 							<input type="checkbox" name="admin" id="admin_check" value="true" class="admin"><a href="#" id="cl" >관리자</a>
 						<div class="box-footer">
-							<button type="submit" class="btn btn-primary">확인</button>
+							<button type="submit" class="btn btn-primary" id="addUser">확인</button>
 							<button type="reset" class="btn btn-danger" onClick="history.back()">취소</button>
 							<!-- <p>테스트<a href="https://www.naver.com/" target="_blank">아니이이이이</a></p>   -->
 						</div>
@@ -184,6 +183,7 @@ $(document).ready(function(){
     $("#ac_fail").text("");
   });
   
+  
   $("#ac_ok").click(function() {
 			if($("#admin_pw").val() == $("#ad_pw").val()){
 				$("input:checkbox[id='admin_check']").prop("checked", true);
@@ -229,6 +229,113 @@ $(function() {
 	
 	
 })
+</script>
+<script>
+	$(function() {
+		/* var idck = 0;
+		  $("#dul").click(function(){
+		       var userId = $("#userId").val();
+		       var jsonBody = {userId:userId}
+		       $.ajax({
+		          url:"${pageContext.request.contextPath}/user/dul",
+		          type:"POST",
+		          headers:{"Content-Type":"application/json","X-HTTP-Method-Override":"POST"},
+		          data:userId,
+		          dataType:"text",
+		          success:function(data){
+		             console.log(data)
+		             if(data == "false"){
+		                alert("중복된 아이디 입니다.")
+		                idck = 0;
+		             }else{
+		                alert("사용할수 있는 아이디 입니다.")
+		                idck = 1;
+		             }
+		          }
+		       })         
+		    }) */
+		$("#addUser").click(function() {
+			var userId = $("#userId").val();
+		      var password = $("#password").val();
+		      var password_ck = $("#password_ck").val();
+		      var name = $("#name").val();
+		      var nickname = $("#nickname").val();
+		      var phone = $("#phone").val();
+		      var birthday = $("#datepicker").val();
+		      var gender = $("#gender").val();
+		      var email = $("#email").val();
+		      var regpass = /^[a-z0-9!@#$%]{8,20}$/i;
+		      var regName = /^[가-힣]{2,4}$/;
+		      var regId = /^[a-z0-9]{6,20}$/;
+		      var regNick = /^[a-z0-9가-힣]{1,20}$/;
+		      var jsonBody = {userId:userId, password:password, name:name, phone:phone,birthday:birthday, email:email, nickname:nickname} //photo:photo
+		      if(userId == ""){
+		         alert("아이디를 입력해주세요")
+		         return false;
+		      }
+		      if(!regId.test(userId)){
+			         alert("아이디 양식에 맞지 않습니다.")
+			         return false;
+			      }
+		      if(name == ""){
+			         alert("이름을 입력해주세요")
+			         return false;
+			      }
+		      if(!regName.test(name)){
+			         alert("이름이 올바르지 않습니다.")
+			         return false;
+			      }
+		      if(nickname == ""){
+			         alert("닉네임을 입력해주세요")
+			         return false;
+			      }
+		      if(!regNick.test(nickname)){
+			         alert("사용불가능한 닉네임입니다.")
+			         return false;
+			      }
+		      if(password == ""){
+		         alert("비밀번호를 입력해주세요")
+		         return false;
+		      }
+		      if(password_ck == ""){
+		         alert("비밀번호 확인을 입력해주세요")
+		         return false;
+		      }
+		      if(!regpass.test(password)){
+			         alert("비밀번호 양식에 맞지않습니다.")
+			         return false;
+			      }
+		      if(password != password_ck){
+		         alert("비밀번호 확인이 일치하지 않습니다.")
+		         return false;
+		      }
+		      if(email == ""){
+			         alert("이메일을 입력해주세요")
+			         return false;
+			      }
+		      if(birthday == ""){
+			         alert("생년월일을 입력해주세요")
+			         return false;
+			      }
+		      if(gender == null){
+			         alert("성별을 입력해주세요")
+			         return false;
+			      }
+		      if(phone == ""){
+		         alert("전화번호를 입력해주세요")
+		         return false;
+		      }
+		     
+		      
+		      
+		      
+		      
+		      /* if(idck == 0){
+		         alert("아이디 중복체크를 해주세요")
+		         return false;
+		      }       */   
+		})
+	})
 </script>
 	
 	
